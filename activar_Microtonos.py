@@ -9,7 +9,7 @@ while ejecutando:
     print("\n=== Panel de microtonos ===")
     print("1.- Ver cuantos microtonos quedan libres")
     print("2.- Activar microtonos (Activacion de sonido)")
-    print("3.- Apagar microtonos ")
+    print("3.- Recuperar microtonos ")
     print("4.- Monitorear el sonido actual")
     print("5.- Salir")
     opcion =int(input("Elige una opcion (1-5): "))
@@ -42,9 +42,25 @@ while ejecutando:
                         nota_actual=frecuencias[(i-1) % len(frecuencias)]
                         duracion_actual=duraciones[(i- 1)% len(duraciones)]
                         winsound.Beep(nota_actual,duracion_actual)
-                        time.sleep(0.05)
+                        time.sleep(0.04)
 
             except ValueError:
                 print("Error")
+    elif opcion == 3:
+        try:
+            print(f"\n Recuperar Microtonos, actualmente hay{ microtonos_activos} microtonos activos")
+            cantidad = int(input("¿Cuantos microtonos quieres recuperar?:"))
+            if cantidad<=0:
+                print("Erro, la cantidad de microtonos a recuperar debe ser mayor a 0")
+            elif microtonos_libres+cantidad>maximo_microtonos:
+                print(f"Erro : no puedes apagar tanto microtonos porque el maximo es {maximo_microtonos}")
+            else:
+                microtonos_libres +=cantidad    
+                microtonos_activos -=cantidad
+                print(f"Recuperaste {cantidad} de microtonos para ser usados en otro momento ")  
+                winsound.beep(440,150)
+        except ValueError:
+            print("Error ,debes colocar un numero entero")          
+
     else:
         print("Error")            
